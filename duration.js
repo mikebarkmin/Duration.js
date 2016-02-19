@@ -4,8 +4,8 @@ var Duration = (function () {
         second      = 1000 * millisecond,
         minute      = 60   * second,
         hour        = 60   * minute,
-        day         = 24   * hour,
-        week        = 7    * day;
+        day         = 8   * hour,
+        week        = 5    * day;
 
     var unitMap = {
         "ms" : millisecond,
@@ -85,6 +85,20 @@ var Duration = (function () {
       // no units for 0 duration
       if (milliseconds === 0) {
         return "0";
+      }
+
+      // weeks
+      var weeks = Math.floor(milliseconds / week);
+      if (weeks !== 0) {
+        milliseconds -= week * weeks;
+        str += weeks.toString() + "w";
+      }
+
+      // days
+      var days = Math.floor(milliseconds / day);
+      if (days !== 0) {
+        milliseconds -= day * days;
+        str += days.toString() + "d";
       }
 
       // hours
